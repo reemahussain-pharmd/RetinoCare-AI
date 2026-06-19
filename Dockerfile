@@ -29,4 +29,4 @@ RUN echo "=== Model file check ===" && \
     [ $(stat -c%s models/best_model.keras 2>/dev/null || echo 0) -gt 100000 ] && \
     echo "Model file OK" || echo "WARNING: model file may be an LFS pointer or missing"
 
-CMD ["streamlit", "run", "app/streamlit_app.py", "--server.port=7860", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "app/streamlit_app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.enableXsrfProtection=false"]
