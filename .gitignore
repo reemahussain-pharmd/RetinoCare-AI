@@ -1,0 +1,45 @@
+# ── Virtual environment ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+
+# ── Raw images (too large for GitHub, kept locally) ──────────────────────────
+data/raw/images/
+data/processed/
+
+# ── Python cache ─────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# ── Jupyter ──────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── Temp / OS files ──────────────────────────────────────────────────────────
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+
+# ── Claude session data ───────────────────────────────────────────────────────
+.claude/
+
+# ── Secrets ──────────────────────────────────────────────────────────────────
+.env
+*.env
+secrets.json
+
+# ── Pipeline log / temp output files ─────────────────────────────────────────
+*_err.txt
+*_out.txt
+image-*.jpg
+outputs/latest_gradcam.png
