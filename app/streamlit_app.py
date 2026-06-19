@@ -90,12 +90,24 @@ st.markdown("""
 # ── Model Loader ───────────────────────────────────────────────────────────────
 @st.cache_resource
 def load_model():
+    import traceback
+    path = Path(MODEL_PATH)
+    if not path.exists():
+        return None, f"File not found: {MODEL_PATH}"
+    size_bytes = path.stat().st_size
+    if size_bytes < 10_000:
+        # LFS pointer files are ~134 bytes; real models are several MB
+        try:
+            preview = path.read_text(errors="replace")[:200]
+        except Exception:
+            preview = ""
+        return None, f"Model file looks like an LFS pointer ({size_bytes} bytes). LFS may not have been resolved in the Docker build context.\n\nFile preview:\n{preview}"
     try:
         from tensorflow import keras
         model = keras.models.load_model(MODEL_PATH)
-        return model
-    except Exception as e:
-        return None
+        return model, None
+    except Exception:
+        return None, traceback.format_exc()
 
 
 # ── Sidebar Navigation ─────────────────────────────────────────────────────────
@@ -122,11 +134,14 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    model = load_model()
+    model, _model_err = load_model()
     if model:
         st.success("✅ Model Loaded")
     else:
         st.warning("⚠️ No model found. Train first.")
+        if _model_err:
+            with st.expander("Show error details"):
+                st.code(_model_err)
 
     st.markdown("""
     <div style="font-size:11px; color:#999; text-align:center; margin-top:20px;">
