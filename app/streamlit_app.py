@@ -49,10 +49,10 @@ SEVERITY_EMOJI = {
     "Severe/Proliferative DR": "🚨",
 }
 
-# Support both .keras and .h5 model formats
-_keras_path = ROOT / "models" / "best_model.keras"
+# H5 is preferred — more stable for nested sub-models across environments
 _h5_path    = ROOT / "models" / "best_model.h5"
-MODEL_PATH  = str(_keras_path if _keras_path.exists() else _h5_path)
+_keras_path = ROOT / "models" / "best_model.keras"
+MODEL_PATH  = str(_h5_path if _h5_path.exists() else _keras_path)
 
 DISCLAIMER = (
     "⚠️ **AI DISCLAIMER:** This system is an **assistive diagnostic tool** and is "
