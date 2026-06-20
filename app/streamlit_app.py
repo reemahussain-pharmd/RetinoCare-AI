@@ -52,19 +52,19 @@ SEV_INFO  = {
         "risk":"Low","urgency":"Routine","follow_up":"Annual screening","icd10":"E11.319",
         "recommendation":"No or minimal retinopathy detected. Continue routine annual screening. Maintain HbA1c < 7.0% and BP < 130/80 mmHg.",
         "clinical_summary":"The AI detected minimal signs of diabetic retinopathy. The retinal vasculature appears within normal limits. Preventive care and regular monitoring are recommended.",
-        "gradcam_text":"The Grad-CAM activation is distributed broadly across the fundus with no concentrated lesion focus, consistent with a healthy or minimally affected retina. Low-level attention may correspond to normal vascular landmarks such as the optic disc and major arcades.",
+        "gradcam_text":"No focal activation detected around haemorrhages, microaneurysms, hard exudates, or neovascular regions. Activation is diffuse and low-intensity across the fundus, with minor attention near the optic disc and major vascular arcades reflecting normal anatomical landmarks. This pattern is consistent with the No/Mild DR prediction — the model found no localised pathological features requiring concentrated attention.",
     },
     "Moderate DR": {
         "risk":"Moderate","urgency":"Non-Urgent Referral","follow_up":"3–6 months","icd10":"E11.339",
         "recommendation":"Moderate NPDR identified. Ophthalmology referral within 3–6 months is strongly recommended. Intensify systemic risk factor management.",
         "clinical_summary":"Moderate NPDR features detected — consistent with microaneurysms, dot-blot haemorrhages, or hard exudates. Timely specialist evaluation is essential to prevent sight-threatening progression.",
-        "gradcam_text":"Concentrated activation in the perifoveal and macular region suggests the AI identified hard exudates or microaneurysms. Secondary activation patterns along the superior temporal arcade are consistent with dot-blot haemorrhages common in moderate NPDR.",
+        "gradcam_text":"Focal high-intensity activation in the perifoveal and macular zone indicates the model identified hard exudates, microaneurysms, or dot-blot haemorrhages — the hallmark lesions of moderate NPDR. Secondary activation clusters along the superior temporal arcade are consistent with early intraretinal microvascular abnormalities (IRMA). The spatial distribution of these activation zones aligns with the typical lesion pattern described in the ETDRS moderate NPDR classification.",
     },
     "Severe/Proliferative DR": {
         "risk":"High / Critical","urgency":"URGENT Referral","follow_up":"Immediate (24–72 hrs)","icd10":"E11.359",
         "recommendation":"Severe or proliferative DR detected — URGENT ophthalmology referral required within 24–72 hours. High risk of vision loss. Treatment may include panretinal photocoagulation or anti-VEGF.",
         "clinical_summary":"Severe NPDR or PDR features identified — may include neovascularisation, vitreous haemorrhage, or tractional retinal detachment risk. This is a sight-threatening emergency requiring immediate specialist consultation.",
-        "gradcam_text":"Multi-focal high-intensity activation across peripheral retinal zones is consistent with the extensive vascular pathology of proliferative DR. Activation clusters near the optic disc may indicate disc neovascularisation, while peripheral foci suggest new vessel formation or large haemorrhages.",
+        "gradcam_text":"Widespread multi-focal high-intensity activation across the peripheral retina and disc margin indicates the model detected extensive neovascular or haemorrhagic pathology. Activation clusters near the optic disc are consistent with disc neovascularisation (NVD), while peripheral foci suggest new vessel formation elsewhere (NVE), pre-retinal haemorrhage, or fibrovascular proliferation. The breadth and intensity of activation is consistent with severe NPDR or proliferative DR — a pattern that warrants immediate ophthalmological review.",
     },
 }
 
@@ -807,7 +807,8 @@ elif selected == "Prediction Result":
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("Predicted Class",    cls)
     m2.metric("Confidence",         f"{conf:.1f}%")
-    m3.metric("Reliability Score",  f"{rel['score']}/100")
+    m3.metric("Reliability Score",  f"{rel['score']}/100",
+              help="Combines: prediction margin (65% weight) + Shannon entropy (35% weight). Higher = more reliable.")
     m4.metric("Urgency",            result.get("urgency","—"))
 
     st.markdown("---")
@@ -836,7 +837,8 @@ elif selected == "Prediction Result":
         st.markdown(_prog_html(rel["score"], rel["color"]), unsafe_allow_html=True)
         st.caption(
             f"Prediction margin: **{rel['margin']:.1f}%** above second class  |  "
-            f"Entropy: **{rel['entropy']:.3f}** (lower = more reliable)"
+            f"Entropy: **{rel['entropy']:.3f}** (lower = more reliable)  |  "
+            "Tooltip: Reliability = Margin x 0.65 + (1 - NormEntropy) x 0.35"
         )
 
     st.markdown("---")
@@ -1333,16 +1335,25 @@ scaled to 0–100:
 
         # Component breakdown
         st.markdown('<div class="sec-hdr">📊 Risk Factor Breakdown</div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div style="font-size:11.5px;color:#7F8C8D;margin-bottom:8px;">
+        Risk contributions are derived from a <b>rule-based Clinical Decision Support engine</b>.
+        Each bar represents the <b>relative contribution</b> of that factor to the composite score
+        based on its assigned clinical weight and the patient's normalised value.
+        A high contribution from a single factor reflects both high weight <i>and</i> an elevated
+        clinical value for that patient — not that it is inherently more dangerous than other factors.
+        </div>
+        """, unsafe_allow_html=True)
         comps = risk["components"]
         fig, ax = plt.subplots(figsize=(8, 3.5))
         keys, vals = list(comps.keys()), list(comps.values())
         bar_colors = ["#E74C3C" if v > 60 else "#F39C12" if v > 35 else "#27AE60" for v in vals]
         ax.barh(keys, vals, color=bar_colors, height=0.5)
-        ax.set_xlabel("Risk Contribution (%)")
+        ax.set_xlabel("Relative Risk Contribution (scaled units)", fontsize=9)
         ax.set_xlim(0, 110)
         for i, v in enumerate(vals):
-            ax.text(v + 1.5, i, f"{v:.1f}%", va="center", fontsize=9)
-        ax.set_title("Risk Factor Contributions", fontweight="bold")
+            ax.text(v + 1.5, i, f"{v:.1f}", va="center", fontsize=9)
+        ax.set_title("Risk Factor Contributions — Rule-Based CDS Engine", fontweight="bold", fontsize=10)
         ax.grid(axis="x", alpha=0.3)
         plt.tight_layout()
         st.pyplot(fig)
@@ -1391,42 +1402,65 @@ scaled to 0–100:
     # Evidence-based guidelines
     st.markdown("---")
     with st.expander("📚 Evidence-Based Clinical Guidelines (NICE / AAO / IDF / ADA)", expanded=False):
+        g1, g2 = st.columns(2)
+        with g1:
+            st.markdown("""
+**NICE Guideline NG28 (UK, 2016)**
+- Annual digital fundus photography for **all people with diabetes** (Type 1 and Type 2)
+- Images graded by trained graders; ungradable images recalled within 3 months
+- HbA1c target: **< 48 mmol/mol (6.5%)** for newly diagnosed T2D; individualised for existing patients
+- Blood pressure target: **< 140/80 mmHg** in people with diabetes (< 130/80 if organ damage)
+- Refer immediately if: sudden visual loss, pre-retinal or vitreous haemorrhage, suspected retinal detachment
+
+**AAO Preferred Practice Pattern (USA, 2019)**
+- Dilated fundus exam at **time of T2D diagnosis**; within 5 years of T1D diagnosis
+- Annual screening if **no retinopathy or mild NPDR**; every 6–12 months if moderate NPDR
+- Widefield imaging (200° field) recommended for peripheral DR detection
+- Anti-VEGF first-line for **centre-involving diabetic macular oedema** (CI-DMO)
+- Panretinal photocoagulation (PRP) for **high-risk PDR** (NVD > 1/3 disc area or NVE with haemorrhage)
+""")
+        with g2:
+            st.markdown("""
+**IDF Diabetes Atlas 10th Edition (Global, 2021)**
+- DR screening at **T2D diagnosis**, then every 1–2 years
+- Intensive glycaemic control reduces DR incidence by ~76% (DCCT trial evidence)
+- Systemic targets: HbA1c < 7.0%, BP < 130/80 mmHg, LDL < 2.6 mmol/L
+- Statin therapy recommended for **all people with T2D** regardless of baseline lipids
+- Smoking cessation essential — active smoking increases DR progression risk
+
+**ADA Standards of Medical Care (2023)**
+- Annual dilated eye exam from **5 years after T1D diagnosis**, or at T2D diagnosis
+- Every 1–2 years if no retinopathy is documented consistently
+- **ACE inhibitors or ARBs** are preferred antihypertensives for people with diabetes and microalbuminuria
+- SGLT-2 inhibitors and GLP-1 receptor agonists may slow DR progression via cardiometabolic benefits
+- Telemedicine retinal imaging may substitute for in-person dilated eye exam in validated programmes
+""")
+        st.markdown("---")
         st.markdown("""
-### International Diabetic Retinopathy Guidelines
-
-| Organisation | Guideline | Key Recommendation |
-|---|---|---|
-| **NICE (UK)** | NG28, 2016 | Annual digital fundus photography for all people with diabetes |
-| **AAO (USA)** | PPP 2019 | Dilated fundus exam at diagnosis, then every 1–2 years if stable |
-| **IDF** | Atlas 10th Ed. | HbA1c < 7.0%, BP < 130/80 mmHg, statin therapy for all T2D |
-| **RCOphth (UK)** | DR Referral 2020 | Moderate NPDR within 13 weeks; Severe NPDR within 6 weeks |
-| **ADA** | Standards 2023 | ACE inhibitors/ARBs preferred antihypertensives; annual screening from T1D diagnosis |
-
-### Screening Frequency by Grade
-
-| DR Grade | Screening Interval | Referral Pathway |
+| DR Grade | Screening Interval | Referral Target |
 |---|---|---|
 | No DR | Every 1–2 years | Routine recall |
 | Mild NPDR | Annually | Primary care |
-| Moderate NPDR | Every 6 months | Hospital eye service — 13 weeks |
-| Severe NPDR | Every 3 months | Hospital eye service — 6 weeks |
-| PDR | Immediately | Emergency — 24–72 hours |
+| Moderate NPDR | Every 6 months | Hospital eye service — within 13 weeks |
+| Severe NPDR | Every 3 months | Hospital eye service — within 6 weeks |
+| PDR / VH | Immediately | Emergency ophthalmology — 24–72 hours |
 
-### Treatment Thresholds
-- **Anti-VEGF** (ranibizumab/bevacizumab/aflibercept): Centre-involving DMO or PDR with NVD/NVE
-- **Panretinal Photocoagulation (PRP)**: High-risk PDR characteristics
+**Treatment Thresholds**
+- **Anti-VEGF** (ranibizumab / bevacizumab / aflibercept): CI-DMO or PDR with active NVD/NVE
+- **PRP (Panretinal Photocoagulation)**: High-risk PDR characteristics — NVD > 1/3 disc, NVE with haemorrhage
 - **Focal/grid laser**: Clinically significant non-centre-involving macular oedema
-- **Vitrectomy**: Non-clearing vitreous haemorrhage, TRD involving the macula
+- **Vitrectomy**: Non-clearing vitreous haemorrhage, tractional retinal detachment involving the macula
 
-### Glycaemic & Systemic Targets (ADA / NICE / IDF)
-| Target | Recommended Value |
-|---|---|
-| HbA1c | < 7.0% (53 mmol/mol) |
-| Blood Pressure | < 130/80 mmHg |
-| LDL Cholesterol | < 2.6 mmol/L (all T2D) |
-| BMI | < 25 kg/m² |
+**Glycaemic & Systemic Targets**
 
-> 🔬 *Future enhancement: PubMed RAG integration for real-time evidence retrieval tailored to individual patient profiles.*
+| Target | Recommended Value | Source |
+|---|---|---|
+| HbA1c | < 7.0% (53 mmol/mol) | ADA / NICE |
+| Blood Pressure | < 130/80 mmHg | NICE / IDF |
+| LDL Cholesterol | < 2.6 mmol/L | IDF / ADA |
+| BMI | < 25 kg/m2 | IDF |
+
+> 🔬 *Future enhancement: PubMed RAG integration for real-time evidence retrieval tailored to individual patient profiles and DR grade.*
         """)
 
 
@@ -1610,7 +1644,7 @@ See the **Model Validation** page for the full roadmap and known limitations.
 
     with ab2:
         st.markdown('<div class="sec-hdr">📊 Project Stats</div>', unsafe_allow_html=True)
-        st.metric("Best AUC",       "0.90+")
+        st.metric("Best AUC",       "0.901 (MobileNetV2)")
         st.metric("Test Accuracy",  "79.6%")
         st.metric("Macro F1",       "0.73+")
         st.metric("Dataset",        "1,764 images")
