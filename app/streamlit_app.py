@@ -493,7 +493,7 @@ elif selected == "Analytics Dashboard":
     ax.set_ylabel("Number of Images")
     plt.xticks(rotation=20, ha="right")
     plt.tight_layout()
-    st.pyplot(fig, use_column_width=True)
+    st.pyplot(fig)
     plt.close()
 
 
