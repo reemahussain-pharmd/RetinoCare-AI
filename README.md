@@ -14,18 +14,21 @@ license: mit
 
 ### AI-Powered Diabetic Retinopathy Detection & Clinical Decision Support System
 
-[![Healthcare AI](https://img.shields.io/badge/Healthcare-AI-1B4F72?style=for-the-badge)](.)
-[![Computer Vision](https://img.shields.io/badge/Computer-Vision-117A65?style=for-the-badge)](.)
-[![Explainable AI](https://img.shields.io/badge/Explainable-AI-2E86C1?style=for-the-badge)](.)
-[![Clinical DSS](https://img.shields.io/badge/Clinical-Decision_Support-7D3C98?style=for-the-badge)](.)
-[![Deep Learning](https://img.shields.io/badge/Deep-Learning-E67E22?style=for-the-badge)](.)
+[![Healthcare AI](https://img.shields.io/badge/Healthcare-AI-1B4F72?style=for-the-badge)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
+[![Computer Vision](https://img.shields.io/badge/Computer-Vision-117A65?style=for-the-badge)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
+[![Explainable AI](https://img.shields.io/badge/Explainable-AI-2E86C1?style=for-the-badge)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
+[![Clinical DSS](https://img.shields.io/badge/Clinical-Decision_Support-7D3C98?style=for-the-badge)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
+[![Deep Learning](https://img.shields.io/badge/Deep-Learning-E67E22?style=for-the-badge)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](.)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](.)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.36-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](.)
+[![HF Spaces](https://img.shields.io/badge/Live_Demo-Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
 
 **Built by a PharmD professional with AI/ML expertise — demonstrating end-to-end clinical AI development**
 
-[Live Demo on Hugging Face Spaces](#) · [Report Issue](#) · [Portfolio Contact](#)
+[🚀 Live Demo — Hugging Face Spaces](https://huggingface.co/spaces/reemahussain/RetinoCare_AI) &nbsp;·&nbsp;
+[📂 GitHub Repository](https://github.com/reemahussain-pharmd/RetinoCare-AI) &nbsp;·&nbsp;
+[🐛 Report Issue](https://github.com/reemahussain-pharmd/RetinoCare-AI/issues)
 
 </div>
 
@@ -387,9 +390,12 @@ docker run -p 7860:7860 retinocare-ai
 
 Open `http://localhost:7860`
 
-### Option C: Hugging Face Spaces
+### Option C: Hugging Face Spaces (No Installation)
 
-Visit the live deployment — no installation required.
+Visit the live deployment at:
+**https://huggingface.co/spaces/reemahussain/RetinoCare_AI**
+
+No installation required — runs in your browser.
 
 ### Requirements Summary
 
