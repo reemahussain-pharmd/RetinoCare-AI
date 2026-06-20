@@ -377,10 +377,22 @@ with st.sidebar:
 # ══════════════════════════════════════════════════════════════════════════════
 if selected == "Home":
     st.markdown("""
-    <div class="hero">
-        <h1>👁 RetinoCare AI</h1>
-        <h3>AI-Powered Diabetic Retinopathy Detection & Clinical Decision Support</h3>
-        <p>Deep Learning · Grad-CAM Explainability · Severity Grading · PDF Clinical Reports</p>
+    <div style="background:linear-gradient(135deg,#0D2137 0%,#1B4F72 55%,#117A65 100%);
+                padding:40px 44px;border-radius:16px;text-align:center;
+                margin-bottom:22px;box-shadow:0 8px 30px rgba(13,33,55,.28);">
+        <div style="font-size:2.6rem;font-weight:800;color:#FFFFFF;
+                    letter-spacing:-.5px;margin-bottom:10px;text-shadow:0 2px 8px rgba(0,0,0,.35);">
+            👁 RetinoCare AI
+        </div>
+        <div style="font-size:1.15rem;font-weight:400;color:rgba(255,255,255,0.93);
+                    margin-bottom:8px;text-shadow:0 1px 4px rgba(0,0,0,.2);">
+            AI-Powered Diabetic Retinopathy Detection &amp; Clinical Decision Support
+        </div>
+        <div style="font-size:0.88rem;color:rgba(255,255,255,0.72);
+                    letter-spacing:.4px;">
+            Deep Learning &nbsp;·&nbsp; Grad-CAM Explainability &nbsp;·&nbsp;
+            Severity Grading &nbsp;·&nbsp; PDF Clinical Reports
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -676,10 +688,17 @@ elif selected == "Prediction Result":
 
     # Result banner
     st.markdown(f"""
-    <div class="result-banner" style="background:{color};">
-        <h2>{emoji} {cls}</h2>
-        <p>Confidence: <b>{conf:.1f}%</b> ({clvl}) · Risk: <b>{result.get("risk_level","—")}</b>
-        · ICD-10: <b>{result.get("icd10","—")}</b></p>
+    <div style="background:{color};padding:24px 32px;border-radius:12px;text-align:center;
+                margin-bottom:18px;box-shadow:0 4px 16px rgba(0,0,0,.18);">
+        <div style="font-size:1.9rem;font-weight:800;color:#FFFFFF;
+                    text-shadow:0 2px 6px rgba(0,0,0,.25);margin-bottom:6px;">
+            {emoji} {cls}
+        </div>
+        <div style="font-size:0.97rem;color:rgba(255,255,255,0.92);">
+            Confidence: <b>{conf:.1f}%</b> ({clvl})
+            &nbsp;·&nbsp; Risk: <b>{result.get("risk_level","—")}</b>
+            &nbsp;·&nbsp; ICD-10: <b>{result.get("icd10","—")}</b>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1054,9 +1073,15 @@ Combine the AI image prediction with patient clinical metadata to generate a
 
         # Result banner
         st.markdown(f"""
-        <div class="result-banner" style="background:{risk['color']};">
-            <h2>🫀 {risk['category']}</h2>
-            <p>Composite Risk Score: <b>{risk['score']:.1f} / 100</b></p>
+        <div style="background:{risk['color']};padding:22px 32px;border-radius:12px;
+                    text-align:center;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.18);">
+            <div style="font-size:1.8rem;font-weight:800;color:#FFFFFF;
+                        text-shadow:0 2px 6px rgba(0,0,0,.25);margin-bottom:5px;">
+                🫀 {risk['category']}
+            </div>
+            <div style="font-size:1rem;color:rgba(255,255,255,0.92);">
+                Composite Risk Score: <b>{risk['score']:.1f} / 100</b>
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
