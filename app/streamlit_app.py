@@ -582,6 +582,7 @@ elif selected == "Upload & Predict":
         # Quality Assessment
         st.markdown('<div class="sec-hdr">🔍 Image Quality Assessment</div>', unsafe_allow_html=True)
         qa = assess_quality(img_arr)
+        st.session_state["image_quality"] = qa
         col_qsc, col_qgr = st.columns(2)
         col_qsc.metric("Quality Score", f"{qa['score']}/100")
         col_qgr.metric("Grade", qa["grade"])
@@ -792,6 +793,7 @@ elif selected == "Prediction Result":
                 original_image_array=st.session_state.get("img_array"),
                 gradcam_array=st.session_state.get("gradcam"),
                 patient_info=st.session_state.get("patient_info"),
+                image_quality=st.session_state.get("image_quality"),
                 save_path=report_path,
             )
             with open(report_path, "rb") as f:
