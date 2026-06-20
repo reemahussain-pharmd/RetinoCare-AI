@@ -561,7 +561,7 @@ elif selected == "Upload & Predict":
     with col_img:
         st.markdown('<div class="sec-hdr">📷 Uploaded Image</div>', unsafe_allow_html=True)
         st.image(img_arr, caption="Retinal Fundus Image" + (" (Synthetic Demo)" if is_demo else ""),
-                 use_container_width=True)
+                 use_column_width=True)
 
     with col_info:
         # Image metadata
@@ -596,7 +596,7 @@ elif selected == "Upload & Predict":
         apply_clahe = st.checkbox("Apply CLAHE Enhancement", value=True)
         if apply_clahe:
             enhanced = enhance_contrast_clahe(img_arr)
-            st.image(enhanced, caption="CLAHE Enhanced", use_container_width=True)
+            st.image(enhanced, caption="CLAHE Enhanced", use_column_width=True)
 
     # ── Options ───────────────────────────────────────────────────────────────
     st.markdown("---")
@@ -827,10 +827,10 @@ that most influenced the AI prediction.
     c1, c2 = st.columns(2)
     if img_array is not None:
         c1.markdown('<div class="sec-hdr">Original Fundus Image</div>', unsafe_allow_html=True)
-        c1.image(img_array, caption="Retinal Fundus Image", use_container_width=True)
+        c1.image(img_array, caption="Retinal Fundus Image", use_column_width=True)
     if gradcam is not None:
         c2.markdown('<div class="sec-hdr">Grad-CAM Activation Map</div>', unsafe_allow_html=True)
-        c2.image(gradcam, caption=f"AI Focus Areas — {cls}", use_container_width=True)
+        c2.image(gradcam, caption=f"AI Focus Areas — {cls}", use_column_width=True)
     else:
         c2.info("Grad-CAM not generated. Re-run prediction with 'Generate Grad-CAM' enabled.")
 
@@ -873,7 +873,7 @@ that most influenced the AI prediction.
     for (name, path), col in zip(xai_files.items(), [x1, x2, x3]):
         col.caption(name)
         if path.exists():
-            col.image(str(path), use_container_width=True)
+            col.image(str(path), use_column_width=True)
         else:
             col.info("Run training pipeline to generate.")
 
@@ -937,13 +937,13 @@ elif selected == "Analytics Dashboard":
 
     tc_path = ROOT / "outputs" / "mobilenetv2_training_curves.png"
     if tc_path.exists():
-        art1.image(str(tc_path), caption="Training & Validation Curves", use_container_width=True)
+        art1.image(str(tc_path), caption="Training & Validation Curves", use_column_width=True)
     else:
         art1.info("Training curves not found — run `quick_run.py`.")
 
     cm_path = ROOT / "outputs" / "mobilenetv2_confusion_matrix.png"
     if cm_path.exists():
-        art2.image(str(cm_path), caption="Confusion Matrix", use_container_width=True)
+        art2.image(str(cm_path), caption="Confusion Matrix", use_column_width=True)
     else:
         art2.info("Confusion matrix not found — run `quick_run.py`.")
 
@@ -951,13 +951,13 @@ elif selected == "Analytics Dashboard":
     roc_path = ROOT / "outputs" / "mobilenetv2_roc_curves.png"
     if roc_path.exists():
         st.markdown('<div class="sec-hdr">📈 ROC Curves (MobileNetV2)</div>', unsafe_allow_html=True)
-        st.image(str(roc_path), caption="Per-Class ROC Curves (OvR)", use_container_width=True)
+        st.image(str(roc_path), caption="Per-Class ROC Curves (OvR)", use_column_width=True)
 
     # Error analysis
     ea_path = ROOT / "outputs" / "error_analysis.png"
     if ea_path.exists():
         st.markdown('<div class="sec-hdr">🔎 Error Analysis</div>', unsafe_allow_html=True)
-        st.image(str(ea_path), caption="Prediction Error Analysis", use_container_width=True)
+        st.image(str(ea_path), caption="Prediction Error Analysis", use_column_width=True)
 
     st.markdown("---")
 
@@ -1000,7 +1000,7 @@ elif selected == "Analytics Dashboard":
         st.markdown("---")
         st.markdown('<div class="sec-hdr">👁 Grad-CAM: All Severity Classes</div>', unsafe_allow_html=True)
         st.image(str(gca_path), caption="Grad-CAM Activation Maps — All Classes (Training Examples)",
-                 use_container_width=True)
+                 use_column_width=True)
 
     # Session prediction log
     st.markdown("---")
