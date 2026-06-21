@@ -5,7 +5,7 @@ Run as a script or convert to .ipynb with: jupytext --to notebook 01_EDA.py
 
 # %% [markdown]
 # # Retinopathy Dataset — Exploratory Data Analysis
-# **RetinoCare AI** | Healthcare AI Portfolio Project
+# **RetinaIQ** | AI-Powered Retinal Disease Screening Platform
 
 # %%
 import os, sys
@@ -258,7 +258,7 @@ if file_sizes:
 # %%
 print(f"""
 {'='*60}
-EDA SUMMARY — RetinoCare AI
+EDA SUMMARY — RetinaIQ
 {'='*60}
 Total Samples    : {len(df):,}
 Duplicate Rows   : {dupes}

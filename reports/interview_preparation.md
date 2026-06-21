@@ -1,4 +1,4 @@
-# RetinoCare AI — Interview Preparation Guide
+# RetinaIQ — Interview Preparation Guide
 ## 30 Questions, Technical Answers & Healthcare AI Discussion Points
 
 ---
@@ -58,7 +58,7 @@ Patient Visit (Diabetic Clinic)
         ↓
 Fundus Camera Capture
         ↓
-RetinoCare AI Screening (< 2s)
+RetinaIQ Screening (< 2s)
         ↓
   ┌─────────────────────────────┐
   │ No DR / Mild → Annual FU   │

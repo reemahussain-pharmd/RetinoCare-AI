@@ -1,5 +1,5 @@
 """
-RetinoCare AI — PDF Clinical Report Generator v2.1
+RetinaIQ — PDF Clinical Report Generator v2.1
 Fixes: auto Patient ID, reliability formula explanation, matplotlib probability chart,
 Grad-CAM region interpretation, risk score from patient metadata, image quality score,
 evidence-based guidelines section.
@@ -271,9 +271,9 @@ def generate_pdf_report(
 
     # ── Header ──────────────────────────────────────────────────────────────────
     hdr = Table(
-        [[Paragraph("RetinoCare AI — Clinical Decision Support Report", TITL)],
+        [[Paragraph("RetinaIQ — AI-Powered Retinal Disease Screening Report", TITL)],
          [Paragraph(
-             f"AI-Assisted Diabetic Retinopathy Screening  ·  Report ID: {report_id}  ·  "
+             f"Diabetic Retinopathy Module  ·  Report ID: {report_id}  ·  "
              f"For Ophthalmologist Review Only", SUBT)]],
         colWidths=[17*cm],
     )
@@ -286,7 +286,7 @@ def generate_pdf_report(
     story.append(Spacer(1, 0.25*cm))
     story.append(Paragraph(
         f"Generated: {ts[:19].replace('T',' ')}  ·  Model: {prediction.get('model_version','—')}  ·  "
-        f"System: RetinoCare AI v2.1  ·  Status: Requires Ophthalmologist Review",
+        f"System: RetinaIQ v2.1  ·  Status: Requires Ophthalmologist Review",
         META,
     ))
     story.append(HRFlowable(width="100%", thickness=1, color=NAVY, spaceAfter=4))
@@ -551,7 +551,7 @@ def generate_pdf_report(
     story.append(Spacer(1, 0.3*cm))
     story.append(HRFlowable(width="100%", thickness=0.4, color=colors.lightgrey))
     story.append(Paragraph(
-        f"RetinoCare AI v2.1  ·  Report ID: {report_id}  ·  Patient: {patient_id}  ·  "
+        f"RetinaIQ v2.1  ·  Report ID: {report_id}  ·  Patient: {patient_id}  ·  "
         f"For Research & Educational Purposes Only  ·  Not for Clinical Deployment",
         FOOT,
     ))

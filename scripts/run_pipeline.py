@@ -1,5 +1,5 @@
 """
-Full RetinoCare AI Pipeline — EDA → Train → Evaluate → XAI
+Full RetinaIQ Pipeline — EDA → Train → Evaluate → XAI
 Streams images from disk via tf.data (no large numpy cache needed).
 3-class retinopathy dataset — 1764 real fundus images.
 """

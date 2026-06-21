@@ -5,7 +5,7 @@ Trains all 7 models with proper callbacks and LR scheduling.
 
 # %% [markdown]
 # # Model Training — Retinopathy Classification
-# **RetinoCare AI** | Deep Learning Pipeline
+# **RetinaIQ** | Deep Learning Pipeline
 
 # %%
 import os, sys

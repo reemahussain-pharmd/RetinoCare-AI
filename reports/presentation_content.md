@@ -1,4 +1,4 @@
-# RetinoCare AI — 15-Slide Presentation Content
+# RetinaIQ — 15-Slide Presentation Content
 ## AI-Powered Retinopathy Detection & Severity Classification
 
 ---
@@ -327,4 +327,4 @@ graph TD
 > *"AI does not replace the ophthalmologist's eye — it extends it to every corner of the world."*
 
 ---
-*Presentation prepared for academic evaluation | RetinoCare AI | Deep Learning & Healthcare AI*
+*Presentation prepared for academic evaluation | RetinaIQ | Deep Learning & Healthcare AI*

@@ -1,5 +1,5 @@
 """
-RetinoCare AI - Quick Demo Run
+RetinaIQ - Quick Demo Run
 2 models, 5 epochs - completes in ~15-20 min on CPU.
 Produces all outputs: plots, confusion matrix, ROC, Grad-CAM, comparison table.
 Run full version overnight: change EPOCHS=25, add more models to MODEL_CONFIGS.

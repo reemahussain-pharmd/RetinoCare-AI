@@ -1,5 +1,5 @@
 """
-RetinoCare AI — Main Pipeline Orchestrator
+RetinaIQ — Main Pipeline Orchestrator
 Runs EDA → Preprocessing → Training → Evaluation → Explainability in sequence.
 """
 
@@ -29,7 +29,7 @@ CLASS_NAMES = ["No/Mild DR", "Moderate DR", "Severe/Proliferative DR"]
 
 # ── CLI Arguments ───────────────────────────────────────────────────────────────
 def parse_args():
-    p = argparse.ArgumentParser(description="RetinoCare AI Pipeline")
+    p = argparse.ArgumentParser(description="RetinaIQ Pipeline")
     p.add_argument("--mode",    default="full",
                    choices=["full", "train", "evaluate", "predict", "eda"],
                    help="Pipeline mode")
@@ -193,7 +193,7 @@ def main():
     args = parse_args()
 
     print("\n" + "="*60)
-    print("  RetinoCare AI — Production Pipeline")
+    print("  RetinaIQ — Production Pipeline")
     print("="*60)
     print(f"  Mode     : {args.mode}")
     print(f"  Models   : {args.models}")

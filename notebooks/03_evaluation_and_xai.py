@@ -4,7 +4,7 @@ Full evaluation pipeline with Grad-CAM, SHAP, and saliency maps.
 """
 
 # %% [markdown]
-# # Model Evaluation & Explainability — RetinoCare AI
+# # Model Evaluation & Explainability — RetinaIQ
 
 # %%
 import os, sys

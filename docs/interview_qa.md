@@ -1,9 +1,9 @@
-# RetinoCare AI — 30 Interview Q&A
+# RetinaIQ — 30 Interview Q&A
 
 ## Section 1: Project Overview & Business Context
 
-**Q1. What problem does RetinoCare AI solve?**
-Diabetic retinopathy (DR) is the leading cause of preventable blindness, affecting ~103 million people worldwide. Early detection dramatically reduces vision loss risk, but ophthalmologist availability is limited — especially in rural and low-income regions. RetinoCare AI automates retinal fundus image grading into 3 severity classes (No/Mild DR, Moderate DR, Severe/Proliferative DR), enabling mass screening at scale with consistent, explainable AI-assisted triage.
+**Q1. What problem does RetinaIQ solve?**
+Diabetic retinopathy (DR) is the leading cause of preventable blindness, affecting ~103 million people worldwide. Early detection dramatically reduces vision loss risk, but ophthalmologist availability is limited — especially in rural and low-income regions. RetinaIQ automates retinal fundus image grading into 3 severity classes (No/Mild DR, Moderate DR, Severe/Proliferative DR), enabling mass screening at scale with consistent, explainable AI-assisted triage.
 
 **Q2. Why 3 classes instead of the standard 5?**
 The ETDRS 5-class scale (0–4) is the clinical gold standard. We consolidated to 3 classes because: (a) the dataset had 3 natural clinical groupings with meaningful treatment decision boundaries — annual screening vs. ophthalmologist referral vs. urgent intervention; (b) consolidation improved statistical power per class given 1,764 images; (c) real-world triage workflows need actionable decisions, not fine-grained academic grading. In production, fine-grained grading can be added with a larger dataset.
@@ -124,7 +124,7 @@ Saliency maps compute the gradient of the output class score with respect to the
 ## Section 8: Healthcare AI Interpretation
 
 **Q23. What are the regulatory considerations for deploying clinical AI?**
-In the US, FDA regulates AI/ML-based Software as a Medical Device (SaMD) under 21 CFR Part 820. For retinopathy screening, clearance via 510(k) pathway requires: clinical validation study (sensitivity/specificity on diverse populations), predicate device comparison, post-market surveillance plan. EU requires CE marking under MDR 2017/745. RetinoCare AI is a research prototype — the disclaimer states explicitly it requires ophthalmologist oversight for any clinical decision.
+In the US, FDA regulates AI/ML-based Software as a Medical Device (SaMD) under 21 CFR Part 820. For retinopathy screening, clearance via 510(k) pathway requires: clinical validation study (sensitivity/specificity on diverse populations), predicate device comparison, post-market surveillance plan. EU requires CE marking under MDR 2017/745. RetinaIQ is a research prototype — the disclaimer states explicitly it requires ophthalmologist oversight for any clinical decision.
 
 **Q24. How would you handle distribution shift in deployment?**
 Three strategies: (1) **Input validation**: Check image quality metrics (contrast, sharpness, field-of-view) and reject poor-quality inputs; (2) **Confidence thresholding**: Flag predictions below a calibrated confidence threshold for human review; (3) **Continuous monitoring**: Track prediction distribution drift over time — sudden shifts in class probabilities signal potential distribution shift. Periodically retrain with local institution data (domain adaptation).

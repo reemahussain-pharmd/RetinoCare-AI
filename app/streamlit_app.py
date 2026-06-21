@@ -1,5 +1,6 @@
 """
-RetinoCare AI v2.0 — Industry-Grade Healthcare AI Clinical Decision Support System
+RetinaIQ v2.0 — AI-Powered Retinal Disease Screening Platform
+Current focus: Diabetic Retinopathy Detection & Clinical Decision Support
 """
 
 import os
@@ -25,7 +26,7 @@ from PIL import Image
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-logger = logging.getLogger("retinocare")
+logger = logging.getLogger("retinaiq")
 
 from src.preprocessing.image_preprocessor import preprocess_single, enhance_contrast_clahe
 from src.explainability.grad_cam import GradCAM
@@ -33,7 +34,7 @@ from src.inference.report_generator import generate_pdf_report
 
 # ── Page Config ────────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="RetinoCare AI | Clinical Decision Support",
+    page_title="RetinaIQ | AI-Powered Retinal Disease Screening Platform",
     page_icon="👁",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -73,7 +74,7 @@ _keras_path = ROOT / "models" / "best_model.keras"
 MODEL_PATH  = str(_h5_path if _h5_path.exists() else _keras_path)
 
 DISCLAIMER = (
-    "⚠️ **AI DISCLAIMER:** RetinoCare AI is an **assistive diagnostic tool** for "
+    "⚠️ **AI DISCLAIMER:** RetinaIQ is an **assistive diagnostic tool** for "
     "**research and portfolio purposes only**. It is **NOT a replacement** for professional "
     "ophthalmological evaluation. All predictions must be reviewed by a qualified "
     "ophthalmologist. Never make clinical decisions solely on this output."
@@ -362,8 +363,8 @@ with st.sidebar:
     st.markdown(f"""
     <div style="text-align:center;padding:10px 0 4px;">
         <div style="font-size:2rem;">👁</div>
-        <div style="font-weight:700;font-size:1.05rem;color:#1B4F72;">RetinoCare AI</div>
-        <div style="font-size:.7rem;color:#7F8C8D;">v{VERSION} · Clinical Decision Support</div>
+        <div style="font-weight:700;font-size:1.05rem;color:#1B4F72;">RetinaIQ</div>
+        <div style="font-size:.7rem;color:#7F8C8D;">v{VERSION} · Retinal Disease Screening</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -395,7 +396,7 @@ with st.sidebar:
 
     st.markdown(f"""
     <div style="font-size:10px;color:#AEB6BF;text-align:center;padding-top:6px;">
-        RetinoCare AI v{VERSION} · For Research Only<br>Not for Clinical Deployment
+        RetinaIQ v{VERSION} · For Research Only<br>Not for Clinical Deployment
     </div>
     """, unsafe_allow_html=True)
 
@@ -410,11 +411,14 @@ if selected == "Home":
                 margin-bottom:22px;box-shadow:0 8px 30px rgba(13,33,55,.28);">
         <div style="font-size:2.6rem;font-weight:800;color:#FFFFFF;
                     letter-spacing:-.5px;margin-bottom:10px;text-shadow:0 2px 8px rgba(0,0,0,.35);">
-            👁 RetinoCare AI
+            👁 RetinaIQ
         </div>
         <div style="font-size:1.15rem;font-weight:400;color:rgba(255,255,255,0.93);
                     margin-bottom:8px;text-shadow:0 1px 4px rgba(0,0,0,.2);">
-            AI-Powered Diabetic Retinopathy Detection &amp; Clinical Decision Support
+            AI-Powered Retinal Disease Screening Platform
+        </div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.78);margin-bottom:6px;">
+            Current Module: Diabetic Retinopathy Detection &amp; Classification
         </div>
         <div style="font-size:0.88rem;color:rgba(255,255,255,0.72);
                     letter-spacing:.4px;">
@@ -900,7 +904,7 @@ elif selected == "Prediction Result":
                     st.download_button(
                         "⬇️ Download PDF Report",
                         data=f,
-                        file_name=f"RetinoCare_Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+                        file_name=f"RetinaIQ_Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
                         mime="application/pdf",
                     )
 
@@ -1472,7 +1476,7 @@ elif selected == "Model Validation":
     st.markdown("""
     <div class="info-box">
     Scientific maturity requires acknowledging both what a model does well and where it falls short.
-    This page documents the validation evidence and known limitations of RetinoCare AI.
+    This page documents the validation evidence and known limitations of RetinaIQ.
     </div>
     """, unsafe_allow_html=True)
 
@@ -1546,20 +1550,21 @@ elif selected == "Model Validation":
 # ABOUT
 # ══════════════════════════════════════════════════════════════════════════════
 elif selected == "About":
-    st.title("ℹ️ About RetinoCare AI")
+    st.title("ℹ️ About RetinaIQ")
 
     # 1. Hero description
     st.markdown(f"""
     <div style="background:linear-gradient(135deg,#EAF2F8,#E8F8F5);border-radius:12px;
                 padding:20px 24px;margin-bottom:18px;border:1px solid #AED6F1;">
         <div style="font-size:1.3rem;font-weight:800;color:#1B4F72;margin-bottom:6px;">
-            RetinoCare AI v{VERSION}
+            RetinaIQ v{VERSION}
         </div>
         <div style="font-size:.95rem;color:#2C3E50;line-height:1.6;">
-            An <b>industry-grade Healthcare AI Clinical Decision Support System</b> for automated
-            diabetic retinopathy detection and severity grading. Built by a PharmD professional
-            with AI/ML expertise to demonstrate end-to-end clinical AI development:
-            from raw fundus images to actionable clinical reports.
+            An <b>AI-Powered Retinal Disease Screening Platform</b> designed to assist in early
+            detection, classification, and explainable analysis of retinal disorders from fundus images.
+            Built by a PharmD professional with AI/ML expertise. <b>Current module:</b> Diabetic
+            Retinopathy Detection &amp; Classification — from raw fundus images to PDF clinical reports.
+            Future modules: Glaucoma, AMD, and broader retinal disease screening.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -1572,7 +1577,7 @@ elif selected == "About":
 Diabetic retinopathy is the **leading cause of preventable blindness** in working-age adults globally,
 affecting ~103 million people. Early detection through structured screening reduces vision loss by up to 80%.
 
-RetinoCare AI demonstrates how **deep learning and clinical AI** can assist ophthalmologists in:
+RetinaIQ demonstrates how **deep learning and clinical AI** can assist ophthalmologists in:
 - Consistent automated severity grading at scale
 - Explainable AI outputs that clinicians can verify and trust
 - Personalised risk stratification beyond the image alone
@@ -1686,7 +1691,7 @@ See the **Model Validation** page for the full roadmap and known limitations.
     st.markdown(f'<div class="disc-box">{DISCLAIMER}</div>', unsafe_allow_html=True)
     st.markdown("""
     <div style="text-align:center;color:#AEB6BF;font-size:11px;padding:8px 0;">
-        RetinoCare AI v2.0.0 · Built with TensorFlow, Keras &amp; Streamlit ·
+        RetinaIQ v2.0.0 · Built with TensorFlow, Keras &amp; Streamlit ·
         For Educational &amp; Research Purposes Only · Not for Clinical Deployment
     </div>
     """, unsafe_allow_html=True)

@@ -1,5 +1,5 @@
 ---
-title: RetinoCare AI
+title: RetinaIQ
 emoji: 👁
 colorFrom: blue
 colorTo: teal
@@ -10,9 +10,9 @@ license: mit
 
 <div align="center">
 
-# 👁 RetinoCare AI
+# 👁 RetinaIQ
 
-### AI-Powered Diabetic Retinopathy Detection & Clinical Decision Support System
+### AI-Powered Retinal Disease Screening Platform
 
 [![Healthcare AI](https://img.shields.io/badge/Healthcare-AI-1B4F72?style=for-the-badge)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
 [![Computer Vision](https://img.shields.io/badge/Computer-Vision-117A65?style=for-the-badge)](https://huggingface.co/spaces/reemahussain/RetinoCare_AI)
@@ -55,7 +55,12 @@ license: mit
 
 Diabetic retinopathy (DR) is the **leading cause of preventable blindness** in working-age adults globally, affecting approximately **103 million people**. Up to **80% of vision loss** from DR is preventable through timely detection and treatment — yet specialist ophthalmologist availability remains severely limited in many healthcare settings.
 
-**RetinoCare AI** is a portfolio-grade Healthcare AI Clinical Decision Support System that demonstrates how **deep learning and explainable AI** can assist ophthalmologists in:
+**RetinaIQ** is a deep learning-powered retinal disease screening platform designed to assist in early detection, classification, and explainable analysis of retinal disorders from fundus images.
+
+> **Current Module: Diabetic Retinopathy Detection & Classification** — using deep learning and computer vision.
+> Future modules planned: Glaucoma screening, Age-Related Macular Degeneration (AMD), and broader retinal disease AI.
+
+RetinaIQ demonstrates how **deep learning and explainable AI** can assist ophthalmologists in:
 
 - **Automated severity grading** of diabetic retinopathy from retinal fundus photographs
 - **Explainable predictions** via Grad-CAM activation maps that clinicians can verify
@@ -97,7 +102,7 @@ This system is designed to illustrate a **complete clinical AI pipeline** — fr
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    RetinoCare AI Pipeline                       │
+│                    RetinaIQ Pipeline                       │
 └─────────────────────────────────────────────────────────────────┘
 
   Retinal Fundus Image (any resolution, RGB)
@@ -384,8 +389,8 @@ Open `http://localhost:8501`
 ### Option B: Docker
 
 ```bash
-docker build -t retinocare-ai .
-docker run -p 7860:7860 retinocare-ai
+docker build -t retinaiq .
+docker run -p 7860:7860 retinaiq
 ```
 
 Open `http://localhost:7860`
@@ -483,7 +488,7 @@ RetinoCare-AI/
 
 ### Clinical Disclaimer
 
-> **IMPORTANT**: RetinoCare AI is an **assistive diagnostic tool developed for research, educational, and portfolio purposes only**.
+> **IMPORTANT**: RetinaIQ is an **assistive diagnostic tool developed for research, educational, and portfolio purposes only**.
 > It is **NOT a replacement** for professional ophthalmological evaluation.
 > All AI predictions **must be reviewed and confirmed** by a qualified ophthalmologist before any clinical decision is made.
 > The system does not store patient data. Clinical judgement must always take precedence.
@@ -511,7 +516,7 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fo
 
 <div align="center">
 
-**RetinoCare AI v2.0.0** · Built with TensorFlow, Keras & Streamlit
+**RetinaIQ v2.0.0** · Built with TensorFlow, Keras & Streamlit
 
 _For Educational & Research Purposes Only · Not for Clinical Deployment_
 

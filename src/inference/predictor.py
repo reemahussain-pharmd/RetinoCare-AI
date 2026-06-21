@@ -1,5 +1,5 @@
 """
-RetinoCare AI — Inference Engine v2.0
+RetinaIQ — Inference Engine v2.0
 Predict retinopathy class, compute reliability score, and generate structured
 clinical results for downstream use in the Streamlit app and PDF reports.
 """
