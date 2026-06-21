@@ -27,8 +27,8 @@ license: mit
 **Built by a PharmD professional with AI/ML expertise — demonstrating end-to-end clinical AI development**
 
 [🚀 Live Demo — Hugging Face Spaces](https://huggingface.co/spaces/reemahussain/RetinoCare_AI) &nbsp;·&nbsp;
-[📂 GitHub Repository](https://github.com/reemahussain-pharmd/RetinoCare-AI) &nbsp;·&nbsp;
-[🐛 Report Issue](https://github.com/reemahussain-pharmd/RetinoCare-AI/issues)
+[📂 GitHub Repository](https://github.com/reemahussain-pharmd/RetinaIQ) &nbsp;·&nbsp;
+[🐛 Report Issue](https://github.com/reemahussain-pharmd/RetinaIQ/issues)
 
 </div>
 
@@ -362,8 +362,8 @@ Each predicted class generates a class-specific textual interpretation of the Gr
 
 ```powershell
 # 1. Clone the repository
-git clone https://github.com/reemahussain-pharmd/RetinoCare-AI.git
-cd RetinoCare-AI
+git clone https://github.com/reemahussain-pharmd/RetinaIQ.git
+cd RetinaIQ
 
 # 2. Create virtual environment
 python -m venv venv
@@ -421,7 +421,7 @@ pillow==10.2.0
 ### Project Structure
 
 ```
-RetinoCare-AI/
+RetinaIQ/
 ├── app/
 │   └── streamlit_app.py         # 8-page clinical decision support web app
 ├── src/
