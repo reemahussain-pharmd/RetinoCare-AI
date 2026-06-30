@@ -33,10 +33,29 @@ desktop.ini
 # ── Claude session data ───────────────────────────────────────────────────────
 .claude/
 
-# ── Secrets ──────────────────────────────────────────────────────────────────
+# ── Secrets & credentials ────────────────────────────────────────────────────
 .env
 *.env
+.env.*
 secrets.json
+secrets.toml
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cert
+service_account.json
+credentials.json
+google_credentials.json
+
+# ── Streamlit secrets (never commit these) ───────────────────────────────────
+.streamlit/secrets.toml
+.streamlit/credentials.toml
+
+# ── Generated PDF reports (patient data — never commit) ──────────────────────
+reports/*.pdf
+reports/retinopathy_report.pdf
 
 # ── Pipeline log / temp output files ─────────────────────────────────────────
 *_err.txt
